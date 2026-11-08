@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  testes:
+    name: testes (${{ matrix.so }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.so }}
+    strategy:
+      fail-fast: false
+      matrix:
+        so: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['20', '22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # O glob precisa do bash: no PowerShell do runner o `testes/*.test.js`
+      # chega ao node como texto literal e ele procura um arquivo com
+      # asterisco no nome.
+      - name: nucleo
+        shell: bash
+        run: node --test testes/nucleo.test.js
+      - name: medidas (varre todas as posicoes de todos os tabuleiros)
+        shell: bash
+        run: node --test testes/medidas.test.js
+
+  medidas:
+    name: tabelas do README
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: conferencia contra a busca sem memoria
+        run: node ferramentas/medidor.js juiz
+      - name: as transpostas
+        run: node ferramentas/medidor.js transpostas
+      - name: a partida da tira 1x5
+        run: node ferramentas/medidor.js partida
+      - name: o valor exato de cada tabuleiro
+        run: node ferramentas/medidor.js resultado
+      - name: o preco de fechar toda caixa
+        run: node ferramentas/medidor.js guloso
+      - name: o guloso posicao por posicao
+        run: node ferramentas/medidor.js posicoes
+      - name: o invariante
+        run: node ferramentas/medidor.js invariante
