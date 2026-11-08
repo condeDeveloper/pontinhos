@@ -1,0 +1,13 @@
+{
+  "name": "pontinhos",
+  "version": "1.0.0",
+  "description": "O valor exato do jogo dos pontinhos em tabuleiros pequenos",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test testes/*.test.js",
+    "medir": "node ferramentas/medidor.js"
+  }
+}
