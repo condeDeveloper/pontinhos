@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pontinhos — o jogo resolvido até o último lance</title>
+<meta name="description" content="O valor exato do jogo dos pontinhos em nove tabuleiros, por varredura completa. Quem fecha toda caixa que aparece perde a tira 1x5 por 0 a 5, errando em s&#243; 7,11% das posi&#231;&#245;es.">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+<header>
+  <h1>Pontinhos</h1>
+  <p>O jogo das caixinhas, resolvido até o último lance. O computador aqui não é bom: ele é perfeito.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Jogue contra o jogo perfeito</h2>
+  <div class="painel">
+    <div class="linha" style="margin-bottom:14px">
+      <select id="tamanho">
+        <option value="2,2">2 × 2 caixas</option>
+        <option value="3,2">3 × 2 caixas</option>
+        <option value="4,2">4 × 2 caixas</option>
+        <option value="5,1">5 × 1 (a tira)</option>
+        <option value="3,3">3 × 3 caixas (demora a abrir)</option>
+      </select>
+      <select id="quem">
+        <option value="0">Eu começo</option>
+        <option value="1">Ele começa</option>
+      </select>
+      <button id="novo">Novo jogo</button>
+      <button id="guloso">Jogar por mim, fechando tudo que aparece</button>
+    </div>
+    <canvas id="tela" width="560" height="430"></canvas>
+    <p id="estado" style="margin:14px 0 0"></p>
+    <p style="margin:6px 0 0;color:var(--fraco);font-size:0.9rem">
+      Clique entre dois pontos para traçar. Fechou caixa, joga de novo.
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2>O valor exato de cada tabuleiro</h2>
+  <div class="painel">
+    <table>
+      <thead>
+        <tr><th>tabuleiro</th><th>arestas</th><th>caixas</th><th>placar perfeito</th><th>quem ganha</th><th>posições varridas</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1 × 1</td><td>4</td><td>1</td><td>0 a 1</td><td>o segundo</td><td>15</td></tr>
+        <tr><td>2 × 1</td><td>7</td><td>2</td><td>1 a 1</td><td>empate</td><td>127</td></tr>
+        <tr><td>3 × 1</td><td>10</td><td>3</td><td>1 a 2</td><td>o segundo</td><td>1.023</td></tr>
+        <tr><td>4 × 1</td><td>13</td><td>4</td><td>2 a 2</td><td>empate</td><td>8.191</td></tr>
+        <tr><td>5 × 1</td><td>16</td><td>5</td><td>2 a 3</td><td>o segundo</td><td>65.535</td></tr>
+        <tr><td>2 × 2</td><td>12</td><td>4</td><td>3 a 1</td><td class="forte">o primeiro</td><td>4.095</td></tr>
+        <tr><td>3 × 2</td><td>17</td><td>6</td><td>2 a 4</td><td>o segundo</td><td>131.071</td></tr>
+        <tr><td>4 × 2</td><td>22</td><td>8</td><td>5 a 3</td><td class="forte">o primeiro</td><td>4.194.303</td></tr>
+        <tr><td>3 × 3</td><td>24</td><td>9</td><td>3 a 6</td><td>o segundo</td><td>16.777.215</td></tr>
+      </tbody>
+    </table>
+    <p style="margin:14px 0 0;color:var(--fraco);font-size:0.92rem">
+      Em nenhuma das cinco tiras de uma linha o primeiro jogador ganha: empata nas pares, perde nas ímpares.
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2>O preço de fechar toda caixa que aparece</h2>
+  <div class="painel">
+    <table>
+      <thead>
+        <tr><th>tabuleiro</th><th>caixas</th><th>jogo perfeito</th><th>o guloso começando</th><th>custo</th><th>posições em que ele erra</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2 × 1</td><td>2</td><td>0</td><td>−2</td><td>2</td><td>11,02%</td></tr>
+        <tr><td>5 × 1</td><td>5</td><td>−1</td><td class="aviso">−5</td><td>4</td><td>7,11%</td></tr>
+        <tr><td>2 × 2</td><td>4</td><td>+2</td><td>0</td><td>2</td><td>13,72%</td></tr>
+        <tr><td>3 × 2</td><td>6</td><td>−2</td><td>−4</td><td>2</td><td>10,23%</td></tr>
+        <tr><td>4 × 2</td><td>8</td><td>+2</td><td class="aviso">−4</td><td>6</td><td>8,23%</td></tr>
+        <tr><td>3 × 3</td><td>9</td><td>−3</td><td>−5</td><td>2</td><td>8,43%</td></tr>
+      </tbody>
+    </table>
+    <p style="margin:14px 0 0;color:var(--fraco);font-size:0.92rem">
+      Na tira 5 × 1 o guloso começa e termina <span class="forte">sem uma caixa</span>: 0 a 5. E mesmo assim
+      o lance dele é o lance ótimo em 92,89% das posições do jogo. Errar pouco não é errar de leve.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>
+    <a href="https://github.com/condeDeveloper/pontinhos">Código e números no GitHub</a> ·
+    JavaScript puro, sem dependência e sem build.
+  </p>
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

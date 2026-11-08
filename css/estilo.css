@@ -1,0 +1,80 @@
+:root {
+  --fundo: #14101c;
+  --painel: #1d1729;
+  --borda: #332a47;
+  --texto: #ece7f5;
+  --fraco: #a79cbe;
+  --vinho: #a52a45;
+  --vinho-claro: #d4536f;
+  --ok: #4ec9a8;
+  --aviso: #e0b64a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 16px 64px;
+  background: var(--fundo);
+  color: var(--texto);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+header {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 40px 0 24px;
+  border-bottom: 1px solid var(--borda);
+}
+
+h1 { margin: 0 0 6px; font-size: 1.9rem; letter-spacing: -0.02em; }
+header p { margin: 0; color: var(--fraco); }
+
+main { max-width: 920px; margin: 0 auto; }
+
+section { margin: 32px 0; }
+h2 { font-size: 1.2rem; margin: 0 0 12px; color: var(--vinho-claro); }
+
+.painel {
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.linha { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+button, select {
+  font: inherit;
+  color: var(--texto);
+  background: #2a2139;
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+button:hover, select:hover { border-color: var(--vinho-claro); }
+button[disabled] { opacity: 0.45; cursor: default; }
+
+canvas { display: block; max-width: 100%; border-radius: 8px; background: #0f0b17; }
+
+.placar { font-variant-numeric: tabular-nums; }
+.forte { color: var(--vinho-claro); font-weight: 600; }
+.ok { color: var(--ok); }
+.aviso { color: var(--aviso); }
+
+footer {
+  max-width: 920px;
+  margin: 48px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--borda);
+  color: var(--fraco);
+  font-size: 0.9rem;
+}
+footer a { color: var(--vinho-claro); }
+
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 5px 10px; border-bottom: 1px solid var(--borda); }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--fraco); font-weight: 500; }
